@@ -21,11 +21,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Update GitHub Profile README
-        uses: theboi/github-update-readme@v1.3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update GitHub README
+        run: node modify-readme.js
+    
+      - name: Commit app versions to GH
+        uses: EndBug/add-and-commit@v7 
         with:
-          header: "Hey"
-          subhead: "Test"
-          footer: "Commit"
+          add: '["README.md"]'
+          message: '[skip ci] update readme file'
+          pathspec_error_handling: exitImmediately
+          default_author: github_actions
