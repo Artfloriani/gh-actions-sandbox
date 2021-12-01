@@ -16,11 +16,11 @@ env:
   NODE_OPTIONS: '--max_old_space_size=4096'
 
 jobs:
-  install-dependencies:
+  print-commit:
     runs-on: ubuntu-latest
     steps:
       - name: Print Commit Message
-        run: echo ${{ github.event.head_commit }} 
+        run: echo ${{ github.sha }} 
 
   get-info:
     name: "Get information about the source run"
