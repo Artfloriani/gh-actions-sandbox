@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+      
+      - name: Output SHA
+        run: echo ${{ github.sha }}
 
       - name: Update GitHub README
         run: node modify-readme.js
