@@ -43,3 +43,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sourceRunId: ${{ github.event.workflow_run.id }}```
+
+      - name: "Print head SHA"
+        run: echo ${{ steps.source-run-info.outputs.sourceHeadSha }}
