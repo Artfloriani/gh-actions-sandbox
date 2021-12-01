@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   workflow_run:
     workflows: ["deployment"]
-    #branches: [beta]
+    branches: [beta]
     types:
       - completed
 
@@ -20,4 +20,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Commit Message
-        run: echo ${{ github.sha }}
+        run: echo ${{ github.sha }} |
+             echo ${{ github.event.head_commit }}
