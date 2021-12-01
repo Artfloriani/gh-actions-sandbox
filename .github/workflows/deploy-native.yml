@@ -20,5 +20,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Commit Message
-        run: echo ${{ github.sha }} |
-             echo ${{ github.event.head_commit }}
+        run: echo ${{ github.event.head_commit }} 
