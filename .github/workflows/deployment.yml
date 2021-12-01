@@ -20,3 +20,12 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Update GitHub Profile README
+        uses: theboi/github-update-readme@v1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          header: "Hey"
+          subhead: "Test"
+          footer: "Commit"
