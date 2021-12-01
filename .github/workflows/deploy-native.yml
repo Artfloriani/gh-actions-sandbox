@@ -22,6 +22,16 @@ jobs:
     steps:
       - name: Print Commit Message
         run: echo ${{ github.sha }} 
+    
+      - name: "Get information about the origin 'CI' run"
+        uses: potiuk/get-workflow-origin@v1_1
+        id: source-run-info
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sourceRunId: ${{ github.event.workflow_run.id }}```
+
+      - name: "Print head SHA"
+        run: echo ${{ steps.source-run-info.outputs.sourceHeadSha }}
 
   get-info:
     name: "Get information about the source run"
@@ -44,5 +54,3 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           sourceRunId: ${{ github.event.workflow_run.id }}```
 
-      - name: "Print head SHA"
-        run: echo ${{ steps.source-run-info.outputs.sourceHeadSha }}
