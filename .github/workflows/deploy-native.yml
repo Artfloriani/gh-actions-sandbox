@@ -28,29 +28,16 @@ jobs:
         id: source-run-info
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          sourceRunId: ${{ github.event.workflow_run.id }}```
+          sourceRunId: ${{ github.event.workflow_run.id }}
 
       - name: "Print head SHA"
         run: echo ${{ steps.source-run-info.outputs.sourceHeadSha }}
 
   get-info:
-    name: "Get information about the source run"
     runs-on: ubuntu-latest
-    outputs:
-      sourceHeadRepo: ${{ steps.source-run-info.outputs.sourceHeadRepo }}
-      sourceHeadBranch: ${{ steps.source-run-info.outputs.sourceHeadBranch }}
-      sourceHeadSha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
-      mergeCommitSha: ${{ steps.source-run-info.outputs.mergeCommitSha }}
-      targetCommitSha: ${{ steps.source-run-info.outputs.targetCommitSha }}
-      pullRequestNumber: ${{ steps.source-run-info.outputs.pullRequestNumber }}
-      pullRequestLabels: ${{ steps.source-run-info.outputs.pullRequestLabels }}
-      targetBranch: ${{ steps.source-run-info.outputs.targetBranch }}
-      sourceEvent: ${{ steps.source-run-info.outputs.sourceEvent }}
+    needs: print-commit
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
-      - name: "Get information about the origin 'CI' run"
-        uses: potiuk/get-workflow-origin@v1_1
-        id: source-run-info
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sourceRunId: ${{ github.event.workflow_run.id }}```
+    - name: "Print head SHA from different job"
+      run: echo ${{ steps.source-run-info.outputs.sourceHeadSha }}
 
